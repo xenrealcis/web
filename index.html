@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>正在跳轉中...</title>
+    <script>
+        // 1. 取得瀏覽器的語言設定
+        // navigator.language 通常會回傳如 "zh-TW", "en-US", "zh-CN"
+        var userLang = navigator.language || navigator.userLanguage;
+        
+        // --- 設定你的靜態首頁路徑 ---
+        
+        // 你的中文首頁路徑 (使用 URL 編碼確保中文檔名正確)
+        var path_zh_tw = "/web/tw/main.html"; 
+        
+        // 注意：你需要先將英文版網頁靜態化，並將檔案放在 /website/ 目錄下
+        var path_en = "/web/en/main.html"; 
+        var path_zh_cn = "/web/cn/main.html"; 
+        
+        // --- 判斷邏輯 ---
+        
+        var redirectPath = path_zh_tw; // 預設導向繁體中文
+
+        // 判斷是否為英文 (en, en-US, en-GB 等)
+        if (userLang.startsWith('en')) {
+            redirectPath = path_en;
+        } 
+        // 判斷是否為簡體中文 (zh-CN) 或其他中文，可自行決定是否導向簡體或繁體
+        else if (userLang.startsWith('zh_CN')) {
+            redirectPath = path_zh_cn;
+        }
+        else if (userLang.startsWith('zh_TW')) {
+            redirectPath = path_zh_tw;
+        }
+        
+        
+        
+        // 2. 執行頁面跳轉
+        window.location.replace(redirectPath);
+
+    </script>
+</head>
+<body>
+    <noscript>
+        <p>請選擇您的語言：</p>
+        <ul>
+            <li><a href="/web/tw/main.html">繁體中文</a></li>
+            <li><a href="/web/en/main.html">English</a></li>
+            <li><a href="/web/cn/main.html">简体中文</a></li>
+        </ul>
+    </noscript>
+</body>
+</html>
